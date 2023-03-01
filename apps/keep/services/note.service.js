@@ -5,7 +5,7 @@ import { storageService } from '../../../services/async-storage.service.js'
 
 const NOTE_KEY = 'noteDB'
 
-const notes = [
+const demoNotes = [
   {
     id: 'n101',
     createdAt: 1112222,
@@ -15,15 +15,18 @@ const notes = [
       backgroundColor: '#00d'
     },
     info: {
-      txt: 'Fullstack Me Baby!'
+      txt: 'Fullstack Me Baby!',
+      url: 'https://images.freeimages.com/images/large-previews/636/holding-a-dot-com-iii-1411477.jpg',
     }
   },
   {
     id: 'n102',
     type: 'NoteImg',
     isPinned: false,
+    txt:'whats up',
     info: {
-      url: 'http://some-img/me',
+      txt:'hello world',
+      url: 'https://images.freeimages.com/images/large-previews/636/holding-a-dot-com-iii-1411477.jpg',
       title: 'Bobi and Me'
     },
     style: {
@@ -34,17 +37,34 @@ const notes = [
     id: 'n103',
     type: 'NoteTodos',
     isPinned: false,
+    txt:'whats up',
     info: {
+      txt:'whats up',
+      url: 'https://images.freeimages.com/images/large-previews/636/holding-a-dot-com-iii-1411477.jpg',
       title: 'Get my stuff together',
       todos: [
         { txt: 'Driving license', doneAt: null },
         { txt: 'Coding power', doneAt: 187111111 }
       ]
     }
+  },
+  {
+    id: 'n102',
+    type: 'NoteImg',
+    isPinned: false,
+    txt:'whats up',
+    info: {
+      txt:'hello world',
+      url: 'http://some-img/me',
+      title: 'Bobi and Me'
+    },
+    style: {
+      backgroundColor: '#00d'
+    }
   }
 ]
 
-// _createNotes()
+ _createNotes()
 
 export const noteService = {
   query,
@@ -81,6 +101,14 @@ function save(note) {
   } else {
     return storageService.post(NOTE_KEY, note)
   }
+}
+
+function _createNotes() {
+  let notes = utilService.loadFromStorage(NOTE_KEY)
+  // if (!notes || !notes.length) {
+    notes = demoNotes
+    utilService.saveToStorage(NOTE_KEY, notes)
+  // }
 }
 
 // function getEmptynote(title = '', price = 0) {
