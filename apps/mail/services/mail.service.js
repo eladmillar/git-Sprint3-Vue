@@ -73,6 +73,14 @@ function _createEmails() {
         emails.push(_createEmail(undefined, 'Coding@Academy.ca'))
         emails.push(_createEmail('trying to see if this works', 'Yiftach@Silberbaum.co.il'))
         emails.push(_createEmail())
+        emails.push(_createEmail())
+        emails.push(_createEmail())
+        emails.push(_createEmail())
+        emails.push(_createEmail())
+        emails.push(_createEmail())
+        emails.push(_createEmail())
+        emails.push(_createEmail())
+        emails.push(_createEmail())
         utilService.saveToStorage(MAIL_KEY, emails)
     }
 }

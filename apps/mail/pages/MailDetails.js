@@ -1,4 +1,5 @@
 import { emailService } from "../services/mail.service.js"
+import { eventBus } from "../../../services/event-bus.service.js"
 
 export default {
     template: `
@@ -11,13 +12,12 @@ export default {
                 <RouterLink :to="'/email/' + email.prevEmailId">Previous Email</RouterLink> |
                 <RouterLink :to="'/email/' + email.nextEmailId">Next Email</RouterLink>
                 <hr />
-                <RouterLink to="/email">Back to Inbox</RouterLink>
+                <!-- <RouterLink to="/email">Back to Inbox</RouterLink> -->
+                <button @click="inbox">Back to Inbox</button>
             </nav>
 
             <hr />
-            <!-- <pre>
-                {{email}}
-            </pre>     -->
+            <!-- <pre>{{email}}</pre>     -->
         </section>
     `,
     data() {
@@ -43,6 +43,14 @@ export default {
         loadEmail() {
             emailService.get(this.emailId)
                 .then(email => this.email = email)
+                .catch(error => error)
+        },
+        inbox() {
+            console.log('hi')
+            eventBus.emit('go to inbox')
         }
+    },
+    components: {
+        eventBus
     }
 }
