@@ -1,0 +1,24 @@
+.email-filter input {
+    height: 44px;
+    margin-top: 2px;
+    margin-left: 1em;
+    background-color: lightcyan;
+    border-radius: 5px;
+}
+
+.email-filter .search-field {
+    display: inline-block;
+    border: 1px inset #ccc;
+    border-radius: 5px;
+}
+
+.email-filter .search-field input {
+    border: none;
+    padding: 0;
+}
+
+.email-filter .search-field button {
+    border: none;
+    background: none;
+    background-color: lightcyan;
+}

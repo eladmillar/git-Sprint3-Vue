@@ -1,25 +1,23 @@
-import MailPreview from './MailPreview.js'
+import mailPreview from './mailPreview.js'
 
 export default {
-    props: ['mails'],
+    props: ['emails'],
     template: `
-        <section class="mail-list">
+        <section class="email-list">
             <ul class="grid">
-                <li v-for="mail in mails" :key="mail.id" class="clean-list">
-                    <MailPreview :mail="mail"/>
-                    <RouterLink :to="'/mail/'+mail.id">Details</RouterLink> |
-                    <!-- <RouterLink :to="'/mail/edit/'+mail.id">Edit</RouterLink> | -->
-                    <button @click="remove(mail.id)">x</button>
+                <li v-for="email in emails" :key="email.id" class="clean-list" :to="'/email/'+email.id">
+                    <mailPreview :email="email" @remove="removeEmail"/>
+                    <!-- <RouterLink :to="'/email/'+email.id">Details</RouterLink> | -->
                 </li>
             </ul>
         </section>
     `,
     methods: {
-        remove(mailId) {
-            this.$emit('remove', mailId)
+        removeEmail(emailId) {
+            this.$emit('remove', emailId)
         },
     },
     components: {
-        MailPreview,
+        mailPreview,
     }
 }

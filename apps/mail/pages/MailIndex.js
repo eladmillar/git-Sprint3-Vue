@@ -1,50 +1,68 @@
-import { mailService } from "../services/mail.service.js"
+import { emailService } from "../services/mail.service.js"
+import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
+import { eventBus } from "../../../services/event-bus.service.js"
 
-import MailList from "../cmps/MailList.js"
+import emailList from "../cmps/MailList.js"
+import emailFilter from "../cmps/MailFilter.js"
 
 export default {
     template: `
-        <section class="mail-index">
-            <h1>Mail</h1>
-            <MailList 
-                :mails="mails" 
-                @remove="removeMail" />
+        <section class="email-index grid">
+            <button>Compose</button>
+            <emailFilter @filter="setFilterBy"/>
+            <div>
+                <!-- <RouterLink to="/email/">Inbox</RouterLink> | -->
+                <!-- <RouterLink to="/email/:emailId">email</RouterLink> -->
+            </div>
+            <emailList  v-if="home"
+                :emails="filteredEmails" 
+                @remove="removeEmail" />
+            <RouterView v-else />
         </section>
     `,
     data() {
         return {
-            mails: [],
+            emails: [],
             filterBy: {},
+            home: true,
         }
     },
     created() {
-        mailService.query()
-            .then(mails => this.mails = mails)
+        emailService.query()
+            .then(emails => this.emails = emails)
+        eventBus.on('go to inbox', () => { this.home = true })
+        eventBus.on('leave inbox', () => { this.home = false })
     },
     methods: {
-        removeMail(mailId) {
-            mailService.remove(mailId)
+        removeEmail(emailId) {
+            emailService.remove(emailId)
                 .then(() => {
-                    const idx = this.mails.findIndex(mail => mail.id === mailId)
-                    this.mails.splice(idx, 1)
-                    showSuccessMsg('Mail removed')
+                    const idx = this.emails.findIndex(email => email.id === emailId)
+                    this.emails.splice(idx, 1)
+                    showSuccessMsg('Email removed')
                 })
                 .catch(err => {
-                    showErrorMsg('Mail remove failed')
+                    showErrorMsg('Email remove failed')
                 })
         },
         setFilterBy(filterBy) {
             this.filterBy = filterBy
-        }
+        },
     },
     computed: {
-        filteredMails() {
-            const regex = new RegExp(this.filterBy.vendor, 'i')
-            return this.mails.filter(mail => regex.test(mail.vendor))
+        filteredEmails() {
+            const regex = new RegExp(this.filterBy.txt, 'i')
+            return this.emails.filter(email =>
+                regex.test(email.body)
+                || regex.test(email.subject)
+                || regex.test(email.from)
+            )
         }
     },
     components: {
-        mailService,
-        MailList,
+        emailService,
+        emailList,
+        emailFilter,
+        eventBus
     },
 }
