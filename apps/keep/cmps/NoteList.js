@@ -1,11 +1,11 @@
-import notePreviue from './NotePreview.js'
+import notePreview from './NotePreview.js'
 export default {
     props: ['notes'],
     template: `
         <section class="notes-list">
             <ul class="grid">
                 <li v-for="note in notes" :key="note.id" class="clean-list" style = "background-color: {{note.style.backgroundColor}}">
-                    <notePreviue :note="note"/>
+                    <notePreview :note="note"/>
                     <button @click="remove(note.id)">x</button>
                 </li>
             </ul>
