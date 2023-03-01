@@ -29,10 +29,10 @@ export default {
                 .then(() => {
                     const idx = this.notes.findIndex(note => note.id === noteId)
                     this.notes.splice(idx, 1)
-                    showSuccessMsg('Car removed')
+                    showSuccessMsg('note removed')
                 })
                 .catch(err => {
-                    showErrorMsg('Car remove failed')
+                    showErrorMsg('note remove failed')
                 })
         },
         onSaveNote(newNote){
