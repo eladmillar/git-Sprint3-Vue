@@ -1,0 +1,8 @@
+.email-list li {
+    border: 1px solid black;
+    padding: 0.5em;
+}
+
+.email-list li p {
+    margin: 0;
+}

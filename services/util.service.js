@@ -2,7 +2,8 @@ export const utilService = {
     makeId,
     makeLorem,
     saveToStorage,
-    loadFromStorage
+    loadFromStorage,
+    getDate,
 }
 
 
@@ -31,4 +32,13 @@ function saveToStorage(key, value) {
 function loadFromStorage(key) {
     const data = localStorage.getItem(key)
     return (data) ? JSON.parse(data) : undefined
+}
+
+getDate()
+function getDate() {
+    let day = new Date().toLocaleString('default', { day: '2-digit' })
+    let month = new Date().toLocaleString('default', { month: 'short' })
+
+    let date = day + ' ' + month
+    return date
 }

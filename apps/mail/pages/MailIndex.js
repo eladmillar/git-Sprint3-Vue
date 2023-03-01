@@ -1,36 +1,37 @@
-import { mailService } from "../services/mail.service.js"
+import { emailService } from "../services/mail.service.js"
+import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
-import MailList from "../cmps/MailList.js"
+import mailList from "../cmps/mailList.js"
 
 export default {
     template: `
-        <section class="mail-index">
-            <h1>Mail</h1>
-            <MailList 
-                :mails="mails" 
-                @remove="removeMail" />
+        <section class="email-index">
+            <h1>mail</h1>
+            <mailList 
+                :emails="emails" 
+                @remove="removeEmail" />
         </section>
     `,
     data() {
         return {
-            mails: [],
+            emails: [],
             filterBy: {},
         }
     },
     created() {
-        mailService.query()
-            .then(mails => this.mails = mails)
+        emailService.query()
+            .then(emails => this.emails = emails)
     },
     methods: {
-        removeMail(mailId) {
-            mailService.remove(mailId)
+        removeEmail(emailId) {
+            emailService.remove(emailId)
                 .then(() => {
-                    const idx = this.mails.findIndex(mail => mail.id === mailId)
-                    this.mails.splice(idx, 1)
-                    showSuccessMsg('Mail removed')
+                    const idx = this.emails.findIndex(email => email.id === emailId)
+                    this.emails.splice(idx, 1)
+                    showSuccessMsg('mail removed')
                 })
                 .catch(err => {
-                    showErrorMsg('Mail remove failed')
+                    showErrorMsg('mail remove failed')
                 })
         },
         setFilterBy(filterBy) {
@@ -38,13 +39,13 @@ export default {
         }
     },
     computed: {
-        filteredMails() {
+        filteredEmails() {
             const regex = new RegExp(this.filterBy.vendor, 'i')
-            return this.mails.filter(mail => regex.test(mail.vendor))
+            return this.emails.filter(email => regex.test(email.vendor))
         }
     },
     components: {
-        mailService,
-        MailList,
+        emailService,
+        mailList,
     },
 }

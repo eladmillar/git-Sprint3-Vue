@@ -3,88 +3,93 @@
 import { utilService } from '../../../services/util.service.js'
 import { storageService } from '../../../services/async-storage.service.js'
 
-const MAIL_KEY = 'mailDB'
+const MAIL_KEY = 'emailDB'
 
-_createMails()
+_createEmails()
 
-export const mailService = {
+const loggedInUser = {
+    email: 'user@appsus.com',
+    fullname: 'Mahatma Appsus'
+}
+
+export const emailService = {
     query,
     get,
     remove,
     save,
-    getEmptyMail,
+    getEmptyEmail,
 }
 
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
-        .then(mails => {
+        .then(emails => {
             if (filterBy.txt) {
                 const regex = new RegExp(filterBy.txt, 'i')
-                mails = mails.filter(mail => regex.test(mail.vendor))
+                emails = emails.filter(email => regex.test(email.vendor))
             }
             if (filterBy.minSpeed) {
-                mails = mails.filter(mail => mail.maxSpeed >= filterBy.minSpeed)
+                emails = emails.filter(email => email.maxSpeed >= filterBy.minSpeed)
             }
-            return mails
+            return emails
         })
 }
 
-function get(mailId) {
-    return storageService.get(MAIL_KEY, mailId)
-        .then(_setNextPrevMailId)
+function get(emailId) {
+    return storageService.get(MAIL_KEY, emailId)
+        .then(_setNextPrevEmailId)
 }
 
-function remove(mailId) {
-    return storageService.remove(MAIL_KEY, mailId)
+function remove(emailId) {
+    return storageService.remove(MAIL_KEY, emailId)
 }
 
-function save(mail) {
-    if (mail.id) {
-        return storageService.put(MAIL_KEY, mail)
+function save(email) {
+    if (email.id) {
+        return storageService.put(MAIL_KEY, email)
     } else {
-        return storageService.post(MAIL_KEY, mail)
+        return storageService.post(MAIL_KEY, email)
     }
 }
 
-function getEmptyMail(subject = '', body = '') {
+function getEmptyEmail(subject = utilService.makeLorem(10), from = '') {
     const email = {
         id: '',
-        subject: 'Miss you!',
-        body: utilService.makeLorem(10),
+        subject,
+        body: utilService.makeLorem(50),
         isRead: false,
-        sentAt: Date.now(),
+        sentAt: utilService.getDate(),
         removedAt: null,
-        from: 'momo@momo.com',
+        from,
         to: 'user@appsus.com'
     }
     return email
 }
 
-function _createMails() {
-    let mails = utilService.loadFromStorage(MAIL_KEY)
-    if (!mails || !mails.length) {
-        mails = []
-        mails.push(_createMail('test1'))
-        mails.push(_createMail('test2'))
-        mails.push(_createMail('test3'))
-        mails.push(_createMail('test4'))
-        utilService.saveToStorage(MAIL_KEY, mails)
+function _createEmails() {
+    let emails = utilService.loadFromStorage(MAIL_KEY)
+    if (!emails || !emails.length) {
+        emails = []
+        emails.push(_createEmail(undefined, 'Brandon@Sanderson.com'))
+        emails.push(_createEmail(undefined, 'Coding@Academy.ca'))
+        emails.push(_createEmail('trying to see if this works', 'Yiftach@Silberbaum.co.il'))
+        emails.push(_createEmail())
+        utilService.saveToStorage(MAIL_KEY, emails)
     }
 }
 
-function _createMail(subject, body = 250) {
-    const mail = getEmptyMail(subject, body)
-    mail.id = utilService.makeId()
-    return mail
+function _createEmail(subject, from = 'Momo@Momo.com') {
+    const email = getEmptyEmail(subject, from)
+    email.id = utilService.makeId()
+    return email
 }
 
-function _setNextPrevMailId(mail) {
-    return storageService.query(MAIL_KEY).then((mails) => {
-        const mailIdx = mails.findIndex((currMail) => currMail.id === mail.id)
-        mail.nextMailId = mails[mailIdx + 1] ? mails[mailIdx + 1].id : mails[0].id
-        mail.prevMailId = mails[mailIdx - 1]
-            ? mails[mailIdx - 1].id
-            : mails[mails.length - 1].id
-        return mail
+function _setNextPrevEmailId(email) {
+    return storageService.query(MAIL_KEY).then((emails) => {
+        const emailIdx = emails.findIndex((currEmail) => currEmail.id === email.id)
+        email.nextEmailId = emails[emailIdx + 1] ? emails[emailIdx + 1].id : emails[0].id
+        email.prevEmailId = emails[emailIdx - 1]
+            ? emails[emailIdx - 1].id
+            : emails[emails.length - 1].id
+        return email
     })
 }

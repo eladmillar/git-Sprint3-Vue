@@ -11,8 +11,14 @@
 /* General Components */
 @import 'cmps/HomePage.css';
 @import 'cmps/AppHeader.css';
+@import 'cmps/AppFooter.css';
 @import 'cmps/UserMsg.css';
 
 /* Apps */
-@import 'apps/mail/EmailIndex.css';
+/* mail */
+@import 'apps/email/mailIndex.css';
+@import 'apps/email/mailPreview.css';
+@import 'apps/email/mailList.css';
+
+/* Note */
 @import 'apps/note/NoteIndex.css';
