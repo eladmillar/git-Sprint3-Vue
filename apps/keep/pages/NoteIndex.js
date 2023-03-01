@@ -7,16 +7,19 @@ import noteList from "../cmps/NoteList.js"
 
 export default {
     template: `
-
         <h1>notes</h1>
         <section class="note-index">
-        <input v-model="message" placeholder="add your note.."></input>
+        <form>
+        <input type="text" ref="my_input">
+        <button @click.prevent="getFormValues()">+</button>
+        </form>
         <noteList 
                 :notes="notes" 
                 @remove="removeNote"/>    
           
         </section>
     `,
+
     data() {
         return {
             notes: [],
