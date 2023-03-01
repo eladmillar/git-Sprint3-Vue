@@ -1,6 +1,6 @@
 import { noteService } from "../services/note.service.js"
 
-import noteList from '../cmps/NoteList'
+import noteList from '../cmps/NoteList.js'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 
 

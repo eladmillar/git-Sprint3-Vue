@@ -3,7 +3,7 @@
 import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
 
-const CAR_KEY = 'noteDB'
+const NOTE_KEY = 'noteDB'
 
 const notes = [
     {
@@ -46,7 +46,7 @@ const notes = [
 
     _createNotes()
 
-export const noteservice = {
+export const noteService = {
   query,
   get,
   remove,
@@ -57,31 +57,31 @@ export const noteservice = {
 }
 
 function query(filterBy = {}) {
-  return storageService.query(note_KEY).then((notes) => {
+  return storageService.query(NOTE_KEY).then((notes) => {
     if (filterBy.txt) {
       const regex = new RegExp(filterBy.txt, 'i')
       notes = notes.filter((note) => regex.test(note.title))
     }
-    if (filterBy.maxPrice) {
-      notes = notes.filter((note) => note.listPrice.amount <= filterBy.maxPrice)
-    }
+    // if (filterBy.maxPrice) {
+    //   notes = notes.filter((note) => note.listPrice.amount <= filterBy.maxPrice)
+    // }
     return notes
   })
 }
 
 function get(noteId) {
-  return storageService.get(note_KEY, noteId)
+  return storageService.get(NOTE_KEY, noteId)
 }
 
 function remove(noteId) {
-  return storageService.remove(note_KEY, noteId)
+  return storageService.remove(NOTE_KEY, noteId)
 }
 
 function save(note) {
   if (note.id) {
-    return storageService.put(note_KEY, note)
+    return storageService.put(NOTE_KEY, note)
   } else {
-    return storageService.post(note_KEY, note)
+    return storageService.post(NOTE_KEY, note)
   }
 }
 
