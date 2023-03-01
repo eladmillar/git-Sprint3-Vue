@@ -17,6 +17,6 @@ export default {
         },
     },
     components: {
-        notePreviue,
+        notePreview,
     }
 }
