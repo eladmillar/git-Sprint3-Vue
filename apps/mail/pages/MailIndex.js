@@ -8,13 +8,13 @@ import emailFilter from "../cmps/MailFilter.js"
 export default {
     template: `
         <section class="email-index grid">
-            <h1>Compose</h1>
+            <button>Compose</button>
             <emailFilter @filter="setFilterBy"/>
             <div>
                 <!-- <RouterLink to="/email/">Inbox</RouterLink> | -->
                 <!-- <RouterLink to="/email/:emailId">email</RouterLink> -->
             </div>
-            <emailList  v-if="home" @click="home = !home"
+            <emailList  v-if="home"
                 :emails="filteredEmails" 
                 @remove="removeEmail" />
             <RouterView v-else />
@@ -31,6 +31,7 @@ export default {
         emailService.query()
             .then(emails => this.emails = emails)
         eventBus.on('go to inbox', () => { this.home = true })
+        eventBus.on('leave inbox', () => { this.home = false })
     },
     methods: {
         removeEmail(emailId) {

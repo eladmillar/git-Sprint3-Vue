@@ -1,3 +1,22 @@
 .email-index {
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 120px 1fr;
+    grid-template-rows: 50px 1fr;
+    border: solid 2px black;
+}
+
+.email-index form {
+    /* border-left: solid 2px black; */
+}
+
+.email-index button {
+    border-left: solid 2px black;
+}
+
+.email-index div {
+    border: solid 2px black;
+    border-top: none;
+}
+
+.email-index h1 {
+    border: solid 2px black;
 }

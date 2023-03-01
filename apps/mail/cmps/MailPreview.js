@@ -1,10 +1,12 @@
+import { eventBus } from "../../../services/event-bus.service.js"
+
 export default {
     props: ['email'],
     template: `
      
         <article class="email-preview">
             <p> 
-                <RouterLink :to="'/email/'+email.id">
+                <RouterLink :to="'/email/'+email.id" @click="setHomeFalse">
                     <span>{{email.from}}</span>  |
                     <span>{{shortContent}}</span>|
                     <span>{{email.sentAt}}</span>
@@ -23,6 +25,10 @@ export default {
         remove(emailId) {
             this.$emit('remove', emailId)
         },
+        setHomeFalse() {
+            // console.log('hi');
+            eventBus.emit('leave inbox')
+        }
     },
     computed: {
         shortContent() {

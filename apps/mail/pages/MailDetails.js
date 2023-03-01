@@ -46,7 +46,6 @@ export default {
                 .catch(error => error)
         },
         inbox() {
-            console.log('hi')
             eventBus.emit('go to inbox')
         }
     },
