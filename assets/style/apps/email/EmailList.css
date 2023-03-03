@@ -6,6 +6,15 @@
 .email-list li {
     border: 1px solid black;
     margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+}
+
+.email-list li.isRead {
+    font-weight: 400;
+    background-color: var(--clrRead);
 }
 
 .email-list p {
@@ -14,7 +23,6 @@
 }
 
 .email-list button {
-    margin-left: 2em;
     min-height: 2em;
     min-width: 2em;
 }
