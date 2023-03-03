@@ -6,11 +6,13 @@ export default {
     template: `
         <section class="email-list">
             <ul class="grid">
-                <li v-for="email in emails" :key="email.id" :class="email.isRead ? 'isRead': ''" class="clean-list" :to="'/email/'+email.id">
+                <li v-for="email in emails" :key="email.id" :class="email.isRead ? 'isRead': ''" class="clean-list">
+                <!-- <RouterLink :to="'/email/'+email.id"> -->
                     <mailPreview :email="email" @remove="removeEmail"/>
+                <!-- </RouterLink>  -->
                     <!-- <RouterLink :to="'/email/'+email.id">Details</RouterLink> | -->
                     <section class="li-btns">
-                        <button @click="unreadEmail(email)">unread</button>
+                        <button @click="unreadEmail(email)"><i class="fa-regular fa-envelope"></i></button>
                         <button @click="removeEmail(email.id)"><i class="fa-solid fa-trash-can"></i></button>
                     </section>
                 </li>
@@ -27,10 +29,8 @@ export default {
             this.$emit('remove', emailId)
         },
         unreadEmail(email) {
-            if (email.isRead === true) {
-                email.isRead = false
-                emailService.save(email)
-            }
+            email.isRead = !email.isRead
+            emailService.save(email)
         },
     },
     components: {
