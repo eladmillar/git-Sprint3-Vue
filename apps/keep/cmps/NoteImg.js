@@ -3,7 +3,7 @@ export default {
   template: `
   
             <h2>{{info.title}}</h2>
-           <img :src="info.url" width="200" height="200"/>
+           <img :src="info.url"/>
 
         `,
 

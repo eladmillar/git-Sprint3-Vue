@@ -1,6 +1,6 @@
 import { noteService } from '../services/note.service.js'
 import { youtubeService } from '../services/youtube.service.js'
-import NoteList from '../cmps/NoteList.js'
+ import NoteList from '../cmps/NoteList.js'
 import NoteDetails from '../cmps/NoteDetails.js'
 
 import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
@@ -8,17 +8,7 @@ import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.servic
 export default {
   template: `
       <section class="main-container"> 
-          <section class="side-bar-conatiner"> 
-              <ul>
-                  <li>💡 Notes</li>
-                  <li>🔔 Reminders</li>
-                  <li>🖊 Edit Labels</li>
-                  <li>☑ Archive</li>
-                  <li>🚮 Trash</li>
-             </ul>
-          </section>
-
-
+          
           <section class="notes-conatiner">
               <section class="search-container">
                 <!-- <form>

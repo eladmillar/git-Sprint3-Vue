@@ -1,12 +1,29 @@
-ul {
+.notes-container {
     display: flex;
-    flex-wrap: wrap-reverse;
+    flex-wrap: wrap;
 }
 
 .note{
     display: block;
     text-align: center;
-    width: 200px;
-    height: 200px;
-    margin: 10px;
+    width: 300px;
+    height: 300px;
+     margin: 10px; 
+    border-radius: 5%;
 }
+
+img{
+    display: block;
+    max-width: 200px;
+    max-height: 400px;
+    width: auto;
+    height: auto;
+}
+
+.note-button{
+    background-color: lightblue;
+    border-color: aqua;
+    border-radius: 10%;
+    
+}
+
