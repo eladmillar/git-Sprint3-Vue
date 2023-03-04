@@ -1,0 +1,31 @@
+.email-compose {
+    position: absolute;
+    display: grid;
+    width: 50vw;
+    height: 70vh;
+    bottom: 8px;
+    left: 150px;
+    background-color: var(--clr2);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.email-compose h2 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.email-compose form button {
+    background-color: blue;
+    border-radius: 40px;
+    width: 120px;
+    justify-self: end;
+    color: white;
+}
+
+.email-compose .close-btn {
+    height: 1em;
+    width: 1em;
+    border-radius: 50%;
+    background-color: var(--clr2);
+    color: black;
+}

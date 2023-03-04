@@ -4,7 +4,7 @@ export default {
         <section class="email-folder-list">
 
                         <button @click="viewInbox">Inbox</button>
-                        <button @click="viewUnread">Unread {{unread}}</button>
+                        <button @click="viewUnread">Unread ({{unread}})</button>
                         <button @click="viewSent">Sent</button>
         </section>
     `,

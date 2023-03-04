@@ -7,13 +7,11 @@ export default {
      
         <article class="email-preview">
                 <RouterLink :to="'/email/'+email.id" @click="setHomeFalse(); setRead();" >
-                    <p>
-                        <span>{{email.from}}</span>  |
-                        <span>{{shortContent}}</span>|
-                        <span>{{email.sentAt}}</span>
+                    <p class="flex justify-between">
+                            <span>{{email.from}} | {{shortContent}}</span>
+                            <span>{{email.sentAt}}</span>
                     </p>
                 </RouterLink>
-                    <!-- <button @click="remove(email.id)"><i class="fa-solid fa-trash-can"></i></button> -->
             <!-- <pre>{{email}}</pre> -->
         </article>
     `,

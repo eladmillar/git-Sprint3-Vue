@@ -5,11 +5,12 @@ import { eventBus } from "../../../services/event-bus.service.js"
 import emailList from "../cmps/MailList.js"
 import emailFilter from "../cmps/MailFilter.js"
 import emailFolderList from "../cmps/MailFolderList.js"
+import emailCompose from "../cmps/MailCompose.js"
 
 export default {
     template: `
         <section class="email-index grid">
-            <button>Compose</button>
+            <button @click="composeEmail">Compose Email</button>
             <emailFilter @filter="setFilterBy"/>
             <emailFolderList 
             @inbox="viewInbox"
@@ -20,6 +21,8 @@ export default {
                 :emails="filteredEmails" 
                 @remove="removeEmail" />
             <RouterView v-else />
+            <emailCompose v-if="compose" 
+            @send="sendMail" @close="closeCompose"/>
         </section>
     `,
     data() {
@@ -28,6 +31,7 @@ export default {
             filterBy: {},
             folder: '',
             home: true,
+            compose: false,
         }
     },
     created() {
@@ -64,6 +68,19 @@ export default {
             // console.log('sent')
             this.folder = 'sent'
         },
+        sendMail(mail) {
+            emailService.save(mail)
+            this.compose = false
+            emailService.query()
+                .then(emails => this.emails = emails)
+            // .then(this.isCompose = false)
+        },
+        composeEmail() {
+            this.compose = true
+        },
+        closeCompose() {
+            this.compose = false
+        }
     },
     computed: {
         filteredEmails() {
@@ -83,7 +100,7 @@ export default {
             )
         },
         unReadEmails() {
-            let unReadEmails = this.emails.filter(email => email.isRead === false).length
+            let unReadEmails = this.emails.filter(email => email.isRead === false && email.from !== emailService.loggedInUser.email).length
             return unReadEmails
         }
     },
@@ -92,6 +109,7 @@ export default {
         emailList,
         emailFilter,
         emailFolderList,
+        emailCompose,
         eventBus
     },
 }
