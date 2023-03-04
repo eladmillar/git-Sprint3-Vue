@@ -1,4 +1,4 @@
-import mailPreview from './mailPreview.js'
+import mailPreview from './MailPreview.js'
 import { emailService } from '../services/mail.service.js'
 
 export default {
