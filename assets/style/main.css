@@ -23,5 +23,15 @@
 @import 'apps/email/EmailFolderList.css';
 @import 'apps/email/EmailCompose.css';
 
+/* Books */
+@import 'apps/books/BookFilter.css';
+@import 'apps/books/BookList.css';
+@import 'apps/books/AddReview.css';
+@import 'apps/books/BookReviews.css';
+
+@import 'apps/books/BookDetails.css';
+@import 'apps/books/BookEdit.css';
+
+
 /* Note */
 @import 'apps/note/NoteIndex.css';
