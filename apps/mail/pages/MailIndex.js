@@ -4,16 +4,18 @@ import { eventBus } from "../../../services/event-bus.service.js"
 
 import emailList from "../cmps/MailList.js"
 import emailFilter from "../cmps/MailFilter.js"
+import emailFolderList from "../cmps/MailFolderList.js"
 
 export default {
     template: `
         <section class="email-index grid">
             <button>Compose</button>
             <emailFilter @filter="setFilterBy"/>
-            <div>
-                <!-- <RouterLink to="/email/">Inbox</RouterLink> | -->
-                <!-- <RouterLink to="/email/:emailId">email</RouterLink> -->
-            </div>
+            <emailFolderList 
+            @inbox="viewInbox"
+            @unread="viewUnread"
+            @sent="viewSent"
+            :unread="unReadEmails"/>
             <emailList  v-if="home"
                 :emails="filteredEmails" 
                 @remove="removeEmail" />
@@ -24,6 +26,7 @@ export default {
         return {
             emails: [],
             filterBy: {},
+            folder: '',
             home: true,
         }
     },
@@ -46,23 +49,49 @@ export default {
                 })
         },
         setFilterBy(filterBy) {
+            // console.log('filterBy', filterBy)
             this.filterBy = filterBy
+        },
+        viewInbox() {
+            // console.log('inbox')
+            this.folder = ''
+        },
+        viewUnread() {
+            // console.log('unread')
+            this.folder = 'unread'
+        },
+        viewSent() {
+            // console.log('sent')
+            this.folder = 'sent'
         },
     },
     computed: {
         filteredEmails() {
+            let mails = this.emails
+            if (this.folder === 'sent') {
+                mails = mails.filter(email => email.from === emailService.loggedInUser.email)
+            }
+            else (mails = mails.filter(email => email.from !== emailService.loggedInUser.email))
+            if (this.folder === 'unread') {
+                mails = mails.filter(email => email.isRead === false)
+            }
             const regex = new RegExp(this.filterBy.txt, 'i')
-            return this.emails.filter(email =>
+            return mails.filter(email =>
                 regex.test(email.body)
                 || regex.test(email.subject)
                 || regex.test(email.from)
             )
+        },
+        unReadEmails() {
+            let unReadEmails = this.emails.filter(email => email.isRead === false).length
+            return unReadEmails
         }
     },
     components: {
         emailService,
         emailList,
         emailFilter,
+        emailFolderList,
         eventBus
     },
 }

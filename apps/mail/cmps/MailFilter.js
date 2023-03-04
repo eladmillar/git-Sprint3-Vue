@@ -13,11 +13,6 @@ export default {
             filterBy: { txt: '' },
         }
     },
-    methods: {
-        filter() {
-            this.$emit('filter', this.filterBy)
-        }
-    },
     watch: {
         filterBy: {
             handler() {
