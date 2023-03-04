@@ -5,12 +5,34 @@ import { storageService } from '../../../services/async-storage.service.js'
 
 const MAIL_KEY = 'emailDB'
 
-_createEmails()
+
+const sentEmail = {
+    id: utilService.makeId(),
+    subject: utilService.makeLorem(5),
+    body: utilService.makeLorem(50),
+    isRead: false,
+    sentAt: utilService.getDate(),
+    removedAt: null,
+    from: 'user@appsus.com',
+    to: 'Momo@Momo.com'
+}
+const sentEmail2 = {
+    id: utilService.makeId(),
+    subject: utilService.makeLorem(5),
+    body: utilService.makeLorem(50),
+    isRead: false,
+    sentAt: utilService.getDate(),
+    removedAt: null,
+    from: 'user@appsus.com',
+    to: 'Momo@Momo.com'
+}
 
 const loggedInUser = {
     email: 'user@appsus.com',
     fullname: 'Mahatma Appsus'
 }
+
+_createEmails()
 
 export const emailService = {
     query,
@@ -18,6 +40,7 @@ export const emailService = {
     remove,
     save,
     getEmptyEmail,
+    loggedInUser,
 }
 
 function query(filterBy = {}) {
@@ -51,7 +74,7 @@ function save(email) {
     }
 }
 
-function getEmptyEmail(subject = utilService.makeLorem(10), from = '') {
+function getEmptyEmail(subject = utilService.makeLorem(5), from = '') {
     const email = {
         id: '',
         subject,
@@ -64,6 +87,7 @@ function getEmptyEmail(subject = utilService.makeLorem(10), from = '') {
     }
     return email
 }
+
 
 function _createEmails() {
     let emails = utilService.loadFromStorage(MAIL_KEY)
@@ -81,6 +105,8 @@ function _createEmails() {
         emails.push(_createEmail())
         emails.push(_createEmail())
         emails.push(_createEmail())
+        emails.push(sentEmail)
+        emails.push(sentEmail2)
         utilService.saveToStorage(MAIL_KEY, emails)
     }
 }

@@ -20,6 +20,8 @@
 @import 'apps/email/EmailPreview.css';
 @import 'apps/email/EmailList.css';
 @import 'apps/email/EmailFilter.css';
+@import 'apps/email/EmailFolderList.css';
+@import 'apps/email/EmailCompose.css';
 
 /* Note */
 @import 'apps/note/NoteIndex.css';

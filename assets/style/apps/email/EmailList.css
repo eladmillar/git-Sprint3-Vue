@@ -6,6 +6,16 @@
 .email-list li {
     border: 1px solid black;
     margin: 0;
+    /* display: flex; */
+    /* justify-content: space-between; */
+    align-items: center;
+    font-weight: 700;
+    position: relative;
+}
+
+.email-list li.isRead {
+    font-weight: 400;
+    background-color: var(--clrRead);
 }
 
 .email-list p {
@@ -13,8 +23,19 @@
     margin: 0;
 }
 
+.email-list .li-btns{
+    position: absolute;
+    right: 0;
+    top: 4px;
+}
+
 .email-list button {
-    margin-left: 2em;
     min-height: 2em;
     min-width: 2em;
+    opacity: 0;
+    transition: opacity 0.2;
+}
+
+.email-list li:hover button {
+    opacity: 1;
 }

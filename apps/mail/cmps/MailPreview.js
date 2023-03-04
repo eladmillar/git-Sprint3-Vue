@@ -1,24 +1,23 @@
 import { eventBus } from "../../../services/event-bus.service.js"
+import { emailService } from "../services/mail.service.js"
 
 export default {
     props: ['email'],
     template: `
      
         <article class="email-preview">
-            <p> 
-                <RouterLink :to="'/email/'+email.id" @click="setHomeFalse">
-                    <span>{{email.from}}</span>  |
-                    <span>{{shortContent}}</span>|
-                    <span>{{email.sentAt}}</span>
+                <RouterLink :to="'/email/'+email.id" @click="setHomeFalse(); setRead();" >
+                    <p class="flex justify-between">
+                            <span>{{email.from}} | {{shortContent}}</span>
+                            <span>{{email.sentAt}}</span>
+                    </p>
                 </RouterLink>
-                    <button @click="remove(email.id)"><i class="fa-solid fa-trash-can"></i></button>
-            </p>
             <!-- <pre>{{email}}</pre> -->
         </article>
     `,
     data() {
         return {
-            content: this.email.subject + ' - ' + this.email.body
+            content: this.email.subject + ' - ' + this.email.body,
         }
     },
     methods: {
@@ -28,13 +27,22 @@ export default {
         setHomeFalse() {
             // console.log('hi');
             eventBus.emit('leave inbox')
+        },
+        setRead() {
+            if (this.email.isRead === false) {
+                this.email.isRead = true
+                emailService.save(this.email)
+            }
         }
     },
     computed: {
         shortContent() {
             var wordArr = this.content.split(" ")
-            var wordShort = wordArr.splice(0, 20).join(" ")
+            var wordShort = wordArr.splice(0, 15).join(" ")
             return wordShort
         },
+    },
+    components: {
+        emailService,
     }
 }
