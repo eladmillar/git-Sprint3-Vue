@@ -36,8 +36,8 @@ const demoNotes = [
     type: 'NoteImg',
     isPinned: false,
     info: {
-      url: 'https://www.thesprucepets.com/thmb/hxWjs7evF2hP1Fb1c1HAvRi_Rw0=/2765x0/filters:no_upscale():strip_icc()/chinese-dog-breeds-4797219-hero-2a1e9c5ed2c54d00aef75b05c5db399c.jpg',
-      title: 'Bobi and Me',
+      url: 'https://media.istockphoto.com/id/1150952747/photo/close-up-of-legs-and-feet-of-football-player-in-blue-socks-and-shoes-running-and-dribbling.jpg?s=612x612&w=0&k=20&c=QQFpYIjyB7ciSfIootizxFo01A005q6SZqBH4YrJJ-8=',
+      title: 'football practice',
     },
     style: {
       backgroundColor: '#F5FFC9',
@@ -48,7 +48,7 @@ const demoNotes = [
     type: 'NoteTodos',
     isPinned: false,
     style: {
-      backgroundColor: '#9DC08B',
+      backgroundColor: utilService.getRandomColor(),
     },
     info: {
       title: 'Get my stuff together',
@@ -107,7 +107,7 @@ function getEmptyTxtNote() {
     type: '',
     isPinned: false,
     style: {
-      backgroundColor: '',
+      backgroundColor: utilService.getRandomColor(),
     },
     info: {
       txt: '',
@@ -121,7 +121,7 @@ function getEmptyImgNote() {
     type: 'NoteImg',
     isPinned: false,
     style: {
-      backgroundColor: '#bdc987',
+      backgroundColor: utilService.getRandomColor(),
     },
     info: {
       title: '',
@@ -136,7 +136,7 @@ function getEmptyVideoNote() {
     type: 'NoteVideo',
     isPinned: false,
     style: {
-      backgroundColor: '#bdc987',
+      backgroundColor: utilService.getRandomColor(),
     },
     info: {
       title: '',
@@ -151,7 +151,7 @@ function getEmptyTodoListNote() {
     type: 'NoteTodos',
     isPinned: false,
     style: {
-      backgroundColor: '#94b8c2',
+      backgroundColor: utilService.getRandomColor(),
     },
     info: {
       title: '',
@@ -162,10 +162,10 @@ function getEmptyTodoListNote() {
 
 function _createNotes() {
   let notes = utilService.loadFromStorage(NOTES_KEY)
-  // if (!notes || !notes.length) {
+  //  if (!notes || !notes.length) {
     notes = demoNotes
     utilService.saveToStorage(NOTES_KEY, notes)
-  // }
+  //  }
 }
 
 
