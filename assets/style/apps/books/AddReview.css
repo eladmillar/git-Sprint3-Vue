@@ -1,0 +1,15 @@
+.add-review form {
+    display: flex;
+    justify-content: center;
+    background-color: aliceblue;
+    gap: 15px;
+    margin-top: 2em;
+    height: 2em;
+}
+
+.add-review form button,
+.add-review form input,
+.add-review form select {
+    min-height: 2em;
+    height: 2em;
+}
