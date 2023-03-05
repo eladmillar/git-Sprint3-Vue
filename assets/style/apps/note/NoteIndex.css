@@ -4,12 +4,21 @@
 }
 
 .note{
-    display: block;
+    display: grid;
     text-align: center;
-    width: 300px;
-    height: 300px;
+    justify-content: center;
+    width: 250px;
+    height: auto;
     margin: 10px; 
     border-radius: 5%;
+    overflow: hidden;
+    white-space:wrap;
+    padding: 1em;
+    
+}
+
+.title{
+    color: black;
 }
 
 .note-img{
@@ -21,9 +30,22 @@
 }
 
 .note-button{
-    background-color: lightblue;
-    border-color: aqua;
-    border-radius: 10%;
+    background-color:lightslategray;
+    border-color:whitesmoke;
+    border-radius: 80%;
+    height: 10px;
+    width: fit-content;
     
+}
+
+.note-buttons{
+    display:flex;
+    justify-content: inherit;
+    margin: 10px;
+}   
+
+.note p{
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 

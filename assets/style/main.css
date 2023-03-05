@@ -35,3 +35,5 @@
 
 /* Note */
 @import 'apps/note/NoteIndex.css';
+@import 'apps/note/addNote.css';
+@import 'apps/note/noteDetails.css';

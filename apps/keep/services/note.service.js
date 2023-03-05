@@ -20,11 +20,12 @@ export const noteService = {
 const demoNotes = [
   {
     id: 'n101',
-    createdAt: 1112222,
+    createdAt: utilService.getDateNote(),
+    // createdAt: 1112222,
     type: 'NoteTxt',
     isPinned: true,
     style: {
-      backgroundColor: '#B3E5BE',
+      backgroundColor: utilService.getRandomColor(),
     },
     info: {
       txt: 'Fullstack Me Baby!',
@@ -33,6 +34,7 @@ const demoNotes = [
 
   {
     id: 'n102',
+    createdAt: utilService.getDateNote(),
     type: 'NoteImg',
     isPinned: false,
     info: {
@@ -40,11 +42,12 @@ const demoNotes = [
       title: 'football practice',
     },
     style: {
-      backgroundColor: '#F5FFC9',
+      backgroundColor: utilService.getRandomColor(),
     },
   },
   {
     id: 'n103',
+    createdAt: utilService.getDateNote(),
     type: 'NoteTodos',
     isPinned: false,
     style: {
@@ -103,7 +106,7 @@ function save(note) {
 function getEmptyTxtNote() {
   return {
     id: '',
-    createdAt: Date.now(),
+    createdAt: utilService.getDateNote(),
     type: '',
     isPinned: false,
     style: {
@@ -118,6 +121,7 @@ function getEmptyTxtNote() {
 function getEmptyImgNote() {
   return {
     id: '',
+    createdAt: utilService.getDateNote(),
     type: 'NoteImg',
     isPinned: false,
     style: {
@@ -133,6 +137,7 @@ function getEmptyImgNote() {
 function getEmptyVideoNote() {
   return {
     id: '',
+    createdAt: utilService.getDateNote(),
     type: 'NoteVideo',
     isPinned: false,
     style: {
@@ -148,6 +153,7 @@ function getEmptyVideoNote() {
 function getEmptyTodoListNote() {
   return {
     id: '',
+    createdAt: utilService.getDateNote(),
     type: 'NoteTodos',
     isPinned: false,
     style: {
@@ -169,17 +175,4 @@ function _createNotes() {
 }
 
 
-// function _createNote(vendor, maxSpeed = 250) {
-//   const note = getEmptyNote(vendor, maxSpeed)
-//   note.id = utilService.makeId()
-//   return note
-// }
 
-// function _setNextPrevNoteId(note) {
-//   return storageService.query(NOTES_KEY).then((cars) => {
-//     const carIdx = cars.findIndex((currCar) => currCar.id === car.id)
-//     car.nextCarId = cars[carIdx + 1] ? cars[carIdx + 1].id : cars[0].id
-//     car.prevCarId = cars[carIdx - 1] ? cars[carIdx - 1].id : cars[cars.length - 1].id
-//     return car
-//   })
-// }

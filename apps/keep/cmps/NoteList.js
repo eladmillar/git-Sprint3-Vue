@@ -13,15 +13,17 @@ export default {
                 <li v-for="note in notes" :key="note.id">
                 
                 <article class="note"
-                @click="openDetails(note)"
                 :style="{'background-color': note.style.backgroundColor}">
 
                     <Component
                     @changeInfo="updateNote" 
                     :is="note.type"
                     :info="note.info"/>
+                    <div class="note-buttons">
                     <button class="note-button" @click.stop="remove(note.id)">🚮</button>
-
+                    <button class="note-button" @click="openDetails(note)">📝</button>
+                    </div>
+                    <p>{{note.createdAt}}</p>
                   </article>
                   </li>
                 </ul>

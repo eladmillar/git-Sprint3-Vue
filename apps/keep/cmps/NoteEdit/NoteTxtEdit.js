@@ -5,14 +5,7 @@ export default {
           class="note-details"
           :style="{'background-color': note.style.backgroundColor}"
           >
-          <button class="color-pic">
-            🎨
-            <input type="color" 
-            v-model="note.style.backgroundColor"
-            @input='changeBgcColor'/>
-          </button>
-         
-
+          
           <input type="color" ref="colorPicker" @input="setColor" style="display: none;">
 
               <input @input="changeTxt"
@@ -20,7 +13,7 @@ export default {
               type="text" :value="note.info.txt"
               :style="{'background-color': note.style.backgroundColor}"
               />
-              <button class="close-modal" @click='closeModal'>x</button>
+              <button class="close-modal" @click='closeModal'>📝</button>
           </article>
           `,
 

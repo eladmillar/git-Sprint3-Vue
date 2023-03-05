@@ -5,10 +5,7 @@ export default {
           class="note-details"
           :style="{'background-color': note.style.backgroundColor}"
           >
-          <input type="color" 
-          v-model="note.style.backgroundColor"
-          @input='changeBgcColor'/>
-
+          
               <input type="text" 
               @input="changeTxt"
               v-model="note.info.title"
@@ -21,12 +18,13 @@ export default {
                 @click="todo.doneAt = todo.doneAt ? null : Date.now()"
                 > 
                     {{todo.txt}}
-                    <button @click.stop="removeTodo(idx)">X</button>
+                    <button @click.stop="removeTodo(idx)">✅</button>
                 </li>
               </ul>
-              <button class="close-modal"  @click='closeModal'>x</button>
+              
               <input v-model="userNewTodo" type="text"/>
-              <button class="add-todo" @click='AddTodo'>AddTodo</button>
+              <button class="add-todo" @click='AddTodo'>Add ot your todo list</button>
+              <button class="close-modal"  @click='closeModal'>📝</button>
           </article>
   `,
 

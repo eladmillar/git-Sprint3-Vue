@@ -4,7 +4,8 @@ export const utilService = {
     saveToStorage,
     loadFromStorage,
     getDate,
-    getRandomColor
+    getRandomColor,
+    getDateNote
 }
 
 
@@ -35,12 +36,18 @@ function loadFromStorage(key) {
     return (data) ? JSON.parse(data) : undefined
 }
 
-getDate()
+// getDate()
+function getDateNote(){
+let date = new Date().toLocaleString()
+return date
+}
+
 function getDate() {
+    
     let day = new Date().toLocaleString('default', { day: '2-digit' })
     let month = new Date().toLocaleString('default', { month: 'short' })
 
-    let date = day + ' ' + month
+    let date = day + ' ' + month 
     return date
 }
 

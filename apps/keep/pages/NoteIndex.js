@@ -2,6 +2,7 @@ import { noteService } from '../services/note.service.js'
 import { youtubeService } from '../services/youtube.service.js'
  import NoteList from '../cmps/NoteList.js'
 import NoteDetails from '../cmps/NoteDetails.js'
+import { utilService } from '../../../services/util.service.js'
 
 import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
 
@@ -22,31 +23,19 @@ export default {
                 </section>
 
                     <form class="addnote-container" @submit.prevent="uploadNote">
-                      <input v-model="userTxt" class="takeANote" :type="text" :placeholder="currInputType"/>
+                      <input v-model="userTxt" class="takeAnote" :type="text" placeholder="take a note..." />
 
-                      <div>
-                        <button type="button" @click="changeInputType('NoteTxt')">A</button>
-                        <button type="button" @click="changeInputType('img')" >🖼</button>
+                      <div class="addnote-buttons">
+                        <button type="button" @click="changeInputType('NoteTxt')">📝</button>
+                        <button type="button" @click="changeInputType('img')" >📷</button>
                         <input type="file" ref="fileInput" @change="handleFileChange" style="display: none;">
-                        <!-- <input class="add-img" type="file" @change="onFileSelected" >🖼</input></button> -->
-                        <button type="button" @click="changeInputType('NoteVideo')" >📽</button>
                         <button type="button" @click="changeInputType('todoList')" >📃</button>
                         <button type="submit" >+</button>
                       </div>
 
                       </form>
 
-                      <section>
-              <NoteList 
-              @removeNote="removeNote"
-              @openDetails="openDetails"
-              :notes="notes"/> 
-              <!-- todo: notes to show in computed (for filter)  -->
-  
-               <!-- </section> -->
-               </section>
-
-               <NoteDetails
+                      <NoteDetails
                :selectedNote="selectedNote"
                @updateNote='updateNote'
                @closeModal='selectedNote = null'
@@ -55,7 +44,16 @@ export default {
                @addTodos='addTodo'
                @deleteTodo='removeTodo'
                v-if="selectedNote"/>
-               
+
+                      <section>
+              <NoteList 
+              @removeNote="removeNote"
+              @openDetails="openDetails"
+              :notes="notes"/> 
+              
+               <!-- </section> -->
+               </section>
+
      </section> 
      </section> 
       `,
@@ -150,7 +148,7 @@ export default {
 
     addTodoList(text) {
       text.split(',').forEach((todoTxt, idx) => {
-        // handle first intaration for the title:
+       
         if (idx === 0) this.note.info.title = todoTxt
         else this.note.info.todos.push({ txt: todoTxt, doneAt: null })
       })
@@ -168,7 +166,8 @@ export default {
         })
     },
 
-    addImgNote(url) {
+    addImgNote(url,txt) {
+      this.note.info.txt = txt
       if (!this.selectedFile) return
       this.note.info.url = url
 
@@ -204,16 +203,17 @@ export default {
       if (this.currInputType === 'NoteTxt') this.addTxtNote(this.userTxt, this.currInputType)
       if (this.currInputType === 'todoList') this.addTodoList(this.userTxt, this.currInputType)
       if (this.currInputType === 'img') {
-        console.log('heyyy')
+        
         const imgUrl = this.imageUrl()
         this.addImgNote(this.userTxt, imgUrl, this.selectedImg)
+
       }
     },
 
     addTxtNote(txt, type) {
       this.note.info.txt = txt
       this.note.type = type
-      this.note.style.backgroundColor = '#B3E5BE'
+      this.note.style.backgroundColor = utilService.getRandomColor()
       noteService
         .save(this.note)
         .then(() => {
@@ -227,28 +227,28 @@ export default {
         })
     },
 
-    uploadVideo(txt) {
-      console.log('txt', txt)
-      youtubeService.getYoutubeTopRes(txt).then((data) => {
-        this.videoUrl = data.items[0].id.videoId
-        console.log('this.videoUrl:', this.videoUrl)
-        // if (!this.selectedFile) return
-        this.note.info.url = this.videoUrl
-        console.log('po1')
-        noteService
-          .save(this.note)
-          .then(() => {
-            this.notes.push(this.note)
-            console.log('this.note:', this.note)
-            // this.note = noteService.getEmptyNote()
-            showSuccessMsg('Note saved')
-            // this.$router.push('/keep' + this.note.id)
-          })
-          .catch(() => {
-            showErrorMsg('Note save failed')
-          })
-      })
-    },
+    // uploadVideo(txt) {
+    //   console.log('txt', txt)
+    //   youtubeService.getYoutubeTopRes(txt).then((data) => {
+    //     this.videoUrl = data.items[0].id.videoId
+    //     console.log('this.videoUrl:', this.videoUrl)
+    //     // if (!this.selectedFile) return
+    //     this.note.info.url = this.videoUrl
+    //     console.log('po1')
+    //     noteService
+    //       .save(this.note)
+    //       .then(() => {
+    //         this.notes.push(this.note)
+    //         console.log('this.note:', this.note)
+    //         // this.note = noteService.getEmptyNote()
+    //         showSuccessMsg('Note saved')
+    //         // this.$router.push('/keep' + this.note.id)
+    //       })
+    //       .catch(() => {
+    //         showErrorMsg('Note save failed')
+    //       })
+    //   })
+    // },
   },
 
   computed: {
@@ -274,22 +274,4 @@ export default {
   },
 }
 
-// function onImgInput(ev) {
-//   loadImageFromInput(ev, renderImg)
-//   // gImgs.push()
-// }
 
-// // CallBack func will run on success load of the img
-// function loadImageFromInput(ev, onImageReady) {
-//   const reader = new FileReader()
-//   // After we read the file
-//   reader.onload = function (event) {
-//     let img = new Image() // Create a new html img element
-//     img.src = event.target.result // Set the img src to the img file we read
-//     // Run the callBack func, To render the img on the canvas
-//     img.onload = onImageReady.bind(null, img)
-//     // Can also do it this way:
-//     // img.onload = () => onImageReady(img)
-//   }
-//   reader.readAsDataURL(ev.target.files[0]) // Read the file we picked
-// }

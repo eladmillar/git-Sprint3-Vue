@@ -1,0 +1,26 @@
+.addnote-container{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1em;
+    padding: 0.5em;
+    background-image: linear-gradient(cornflowerblue, violet ); 
+    box-shadow: 1px 1px 1px;
+}
+
+.addnote-buttons button{
+margin-left: 10px;
+border-radius: 80%;
+justify-content: center;
+background-color: lightslategray;
+border-color:lightblue;
+}
+
+.addnote-buttons button:hover{
+    opacity: 80%;
+}
+
+.takeAnote{
+    background-color: lightblue;
+    border-radius: 5%;
+    border: none;
+}
